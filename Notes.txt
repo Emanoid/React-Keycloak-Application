@@ -15,12 +15,13 @@ docker run -d \
   --net keycloak-network \
   -p 8080:8080 \
   -e DB_VENDOR=postgres \
-  -e DB_ADDR=postgresql \
+  -e DB_ADDR=hs-psql1 \
   -e DB_PORT=5432 \
-  -e DB_DATABASE=hs-psql1 \
+  -e DB_DATABASE=hs-wikijstest\
   -e DB_USER=wikijs \
   -e DB_PASSWORD=wikijs@highstep \
   jboss/keycloak
+
 
 Error:
 https://stackoverflow.com/questions/64229142/failed-to-connect-to-database-unable-to-connect-to-azure-postgresql-db-fro
@@ -46,3 +47,8 @@ Guide:
 Docker Themes: https://medium.com/front-end-weekly/custom-themes-for-keycloak-631bdd3e04e5
 
 docker run -d -p 9000:8080 --name theme-keycloak -e KEYCLOAK_USER=Emmanuel -e KEYCLOAK_PASSWORD=Keycloak5 --mount type=bind,source="C:/Users/eolatunde/Desktop/Learning Languages/Authentication & Registration/Keycloak/keycloak-12.0.4/themes/custom",target=/opt/jboss/keycloak/themes/mytheme jboss/keycloak
+
+
+
+
+Add Keycloak to ASP.Net Core Web App
