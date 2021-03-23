@@ -2,10 +2,10 @@ User Defined Network:
 docker network create keycloak-network
 
 Set up Database
-docker run -d --name postgres-keycloak --net keycloak-network -e POSTGRES_DB=wikijstest -e POSTGRES_USER=wikijs -e POSTGRES_PASSWORD=wikijs@highstep postgres
+docker run -d --name postgres-keycloak --net keycloak-network -e POSTGRES_DB=keycloak_dev -e POSTGRES_USER=keycloak_user -e POSTGRES_PASSWORD=K3yCl0@kDev postgres
 
 Connect Keycloak to Database
-docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_ADDR=hs-psql1 -e DB_USER=wikijs -e DB_PASSWORD=wikijs@highstep
+docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_ADDR=hs-psql13-prod -e DB_USER=keycloak_user -e DB_PASSWORD=K3yCl0@kDev
 
 Error: https://access.redhat.com/solutions/3712111
 
@@ -15,11 +15,11 @@ docker run -d \
   --net keycloak-network \
   -p 8080:8080 \
   -e DB_VENDOR=postgres \
-  -e DB_ADDR=hs-psql1 \
+  -e DB_ADDR=hs-psql13-prod \
   -e DB_PORT=5432 \
-  -e DB_DATABASE=hs-wikijstest\
-  -e DB_USER=wikijs \
-  -e DB_PASSWORD=wikijs@highstep \
+  -e DB_DATABASE=keycloak_dev \
+  -e DB_USER=keycloak_user \
+  -e DB_PASSWORD=K3yCl0@kDev \
   jboss/keycloak
 
 
