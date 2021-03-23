@@ -1,0 +1,48 @@
+User Defined Network:
+docker network create keycloak-network
+
+Set up Database
+docker run -d --name postgres-keycloak --net keycloak-network -e POSTGRES_DB=wikijstest -e POSTGRES_USER=wikijs -e POSTGRES_PASSWORD=wikijs@highstep postgres
+
+Connect Keycloak to Database
+docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_ADDR=hs-psql1 -e DB_USER=wikijs -e DB_PASSWORD=wikijs@highstep
+
+Error: https://access.redhat.com/solutions/3712111
+
+Alternative:
+docker run -d \
+  --name keycloak \
+  --net keycloak-network \
+  -p 8080:8080 \
+  -e DB_VENDOR=postgres \
+  -e DB_ADDR=postgresql \
+  -e DB_PORT=5432 \
+  -e DB_DATABASE=hs-psql1 \
+  -e DB_USER=wikijs \
+  -e DB_PASSWORD=wikijs@highstep \
+  jboss/keycloak
+
+Error:
+https://stackoverflow.com/questions/64229142/failed-to-connect-to-database-unable-to-connect-to-azure-postgresql-db-fro
+  
+"C:/Users/eolatunde/Desktop/Learning Languages/Authentication & Registration/Keycloak/keycloak-12.0.4/themes/custom"
+
+Guide:
+  docker run -d \
+  --name keycloak \
+  --net keycloak-network \
+  -p 8080:8080 \
+  -v $PWD/themes/mytheme:/opt/jboss/keycloak/themes/healthjoiner \
+  -v $PWD/modules:/opt/jboss/keycloak/modules/system/layers/keycloak \
+  -e DB_VENDOR=postgres \
+  -e DB_ADDR=postgresql \
+  -e DB_PORT=5432 \
+  -e DB_DATABASE=<DB> \
+  -e DB_USER=<DBUSER> \
+  -e DB_PASSWORD=<DBPASSWORD> \
+  jboss/keycloak:4.7.0.Final
+
+
+Docker Themes: https://medium.com/front-end-weekly/custom-themes-for-keycloak-631bdd3e04e5
+
+docker run -d -p 9000:8080 --name theme-keycloak -e KEYCLOAK_USER=Emmanuel -e KEYCLOAK_PASSWORD=Keycloak5 --mount type=bind,source="C:/Users/eolatunde/Desktop/Learning Languages/Authentication & Registration/Keycloak/keycloak-12.0.4/themes/custom",target=/opt/jboss/keycloak/themes/mytheme jboss/keycloak
